@@ -2,17 +2,18 @@
 <html lang="en">
   <head>
     <title>Chat with Socket.IO</title>
-    <meta charset="utf-8"/>
-    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <meta charset="utf-8" />
     <style>
       @import url(https://fonts.googleapis.com/css?family=Hind);
-      @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital@1&display=swap');
+      @import url("https://fonts.googleapis.com/css2?family=Courier+Prime:ital@1&display=swap");
 
       body {
-        font-family: 'Hind', sans-serif;
+        font-family: "Hind", sans-serif;
       }
-      #content, #chat_content {
+      #content,
+      #chat_content {
         padding: 1em;
+<<<<<<< HEAD
         background-color: lightslategray;
         margin: 0 auto;
         width: 46%;
@@ -24,8 +25,13 @@
 
       #chat_content {
         float: left;
+=======
+        background-color: lightgreen;
+        margin: 0 auto;
+        width: 80%;
+        border-radius: 25px;
+>>>>>>> 590fe42d31f83e5e34815c4b92fe1f27dfa81bca
       }
-
 
       #chat_form {
         color: white;
@@ -38,16 +44,22 @@
 
       #chat_form > input {
         font-size: 1.1em;
+<<<<<<< HEAD
 /*        display: block;*/
 /*        margin: 0 auto;*/
         /* margin-top: 1em; */
+=======
+        /*        display: block;*/
+        /*        margin: 0 auto;*/
+        margin-top: 1em;
+>>>>>>> 590fe42d31f83e5e34815c4b92fe1f27dfa81bca
         margin-right: 1em;
         outline: none;
         border: none;
         text-align: center;
         color: #212121;
         padding: 0.4em;
-        background-color: rgba(255,255,255,0.7);
+        background-color: rgba(255, 255, 255, 0.7);
         border-radius: 6px;
       }
 
@@ -63,7 +75,7 @@
         text-align: left;
         color: #212121;
         padding: 0.4em;
-        background-color: rgba(255,255,255,0.7);
+        background-color: rgba(255, 255, 255, 0.7);
         border-radius: 6px;
       }
 
@@ -91,130 +103,150 @@
       #footer {
         margin: 0 auto;
         color: white;
-        background-color: cornflowerblue;
+        background-color: lightgreen;
       }
 
       #chat_content {
-        font-family: 'Courier Prime';
+        font-family: "Courier Prime";
         font-size: 1.2em;
         color: white;
       }
+<<<<<<< HEAD
 
       .centers {
         text-align: center;
       }
 
+=======
+      h1,
+      h3 {
+        text-align: center;
+      }
+>>>>>>> 590fe42d31f83e5e34815c4b92fe1f27dfa81bca
     </style>
   </head>
   <body>
-
+    <h1>The Best Chatting App!</h1>
+    <h3>Service provided by:</h3>
+    <h3>Maximus, Paul, Marco, Toni, Xandra</h3>
     <div id="content">
+<<<<<<< HEAD
 
       <h1 class="centers">Welcome to Team 35's Chat box!</h1>
       <form id="chat_form">
         <span style="font-size:  1.2em;">Your Name: </span>
         <input type="text" id="name" placeholder="Name"/>
+=======
+      <form id="chat_form">
+        <input type="text" id="name" placeholder="Name" />
+>>>>>>> 590fe42d31f83e5e34815c4b92fe1f27dfa81bca
         <textarea id="msg" placeholder="Your message here"></textarea>
-        <input type="button" id="send" value="Send"/>
+        <input type="button" id="send" value="Send" />
       </form>
     </div>
     <p>&nbsp;</p>
     <div id="chat_content"></div>
-<!--    <footer id="footer"></footer>-->
+    <!--    <footer id="footer"></footer>-->
 
     <script src="http://localhost:8000/socket.io/socket.io.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>
-        $(document).ready(function() {
-            "use strict";
+      $(document).ready(function () {
+        "use strict";
 
-            /* This happens when the document is loaded. We start off with http://localhost:8000
+        /* This happens when the document is loaded. We start off with http://localhost:8000
                And if the browser supports this, we get a new connection as wellat:
                ws://localhost:8000
              */
-            let socket = io.connect('/');
+        let socket = io.connect("/");
 
-            socket.on('user_joined', function(data) {
-                let beginTag = "<p style='color: bisque;'>";
-                let numOfUsers = data.numOfUsers;
-                let userStr = "";
-                if(numOfUsers == 1) {
-                    userStr = "user";
-                } else {
-                    userStr = "users";
-                }
-                if(numOfUsers < 2) {
-
-                    $("#chat_content").append("<p>Just you, no one else.</p>");
-
-                } else {
-
-                    $("#chat_content").append(beginTag + data.user
-                        + " connected. There are " + numOfUsers + " " + userStr + ".</p>");
-
-                }
-
-            });
-
-            socket.on('user_left', function(data) {
-                let beginTag = "<p style='color: burlywood;'>";
-                let numOfUsers = data.numOfUsers;
-                let userStr = "";
-                if(numOfUsers == 1) {
-                    userStr = "user";
-                } else {
-                    userStr = "users";
-                }
-                if(numOfUsers < 2) {
-
-                    $("#chat_content").append("<p>" + data.user + " left. You are now all alone on this chat server <span style='font-size: 1.2em; color: blue;'>☹</span>.</p>");
-
-
-                } else {
-
-                    $("#chat_content").append(beginTag + data.user
-                        + " left. Now chatting with " + numOfUsers + " " + userStr + "</p>");
-
-                }
-
-            });
-
-            // this is from others - not our text
-            socket.on('chatting', function(data) {
-                //console.log(data);
-                let me = $("#name").val();
-                let beginTag = "<p>";
-                if(me == data.user) {
-                    beginTag = "<p style='color: darkblue;'>";
-                }
-                if(data.event) {
-                    $("#chat_content").append("<p style='color: orange;'>" + data.event + "</p>");
-                }
-                $("#chat_content").append(beginTag + data.user + " said: " + data.text + "</p>");
-
-            });
-
-
-            $("#send").click(function() {
-
-                let name = $("#name").val();
-                let text = $("#msg").val();
-
-                // check if the name is blank, shouldn't be
-                if(name == null || name === "") {
-                    $("#name").fadeOut(50).fadeIn(50).fadeOut(50).fadeIn(50);
-                    return;
-                }
-                if(text == null || text === "") {
-                    $("#msg").fadeOut(50).fadeIn(50).fadeOut(50).fadeIn(50);
-                    return;
-                }
-                socket.emit('chatting', {"name": name, message: text});
-                $("#msg").val("");
-            });
-
+        socket.on("user_joined", function (data) {
+          let beginTag = "<p style='color: bisque;'>";
+          let numOfUsers = data.numOfUsers;
+          let userStr = "";
+          if (numOfUsers == 1) {
+            userStr = "user";
+          } else {
+            userStr = "users";
+          }
+          if (numOfUsers < 2) {
+            $("#chat_content").append("<p>You are alone, as always.</p>");
+          } else {
+            $("#chat_content").append(
+              beginTag +
+                data.user +
+                "There are " +
+                numOfUsers +
+                " " +
+                userStr +
+                ".</p>"
+            );
+          }
         });
-    </script>
 
+        socket.on("user_left", function (data) {
+          let beginTag = "<p style='color: burlywood;'>";
+          let numOfUsers = data.numOfUsers;
+          let userStr = "";
+          if (numOfUsers == 1) {
+            userStr = "user";
+          } else {
+            userStr = "users";
+          }
+          if (numOfUsers < 2) {
+            $("#chat_content").append(
+              "<p>" +
+                data.user +
+                "You are once again alone.<span style='font-size: 1.2em; color: blue;'>☹</span>.</p>"
+            );
+          } else {
+            $("#chat_content").append(
+              beginTag +
+                data.user +
+                " left. Now chatting with " +
+                numOfUsers +
+                " " +
+                userStr +
+                "</p>"
+            );
+          }
+        });
+
+        // this is from others - not our text
+        socket.on("chatting", function (data) {
+          //console.log(data);
+          let me = $("#name").val();
+          let beginTag = "<p>";
+          if (me == data.user) {
+            beginTag = "<p style='color: darkblue;'>";
+          }
+          if (data.event) {
+            $("#chat_content").append(
+              "<p style='color: orange;'>" + data.event + "</p>"
+            );
+          }
+          $("#chat_content").append(
+            beginTag + data.user + " said: " + data.text + "</p>"
+          );
+        });
+
+        $("#send").click(function () {
+          let name = $("#name").val();
+          let text = $("#msg").val();
+
+          // check if the name is blank, shouldn't be
+          if (name == null || name === "") {
+            $("#name").fadeOut(50).fadeIn(50).fadeOut(50).fadeIn(50);
+            return;
+          }
+          if (text == null || text === "") {
+            $("#msg").fadeOut(50).fadeIn(50).fadeOut(50).fadeIn(50);
+            return;
+          }
+          socket.emit("chatting", { name: name, message: text });
+          $("#msg").val("");
+        });
+      });
+    </script>
   </body>
 </html>
