@@ -13,9 +13,10 @@
       #content,
       #chat_content {
         padding: 1em;
-        background-color: cornflowerblue;
+        background-color: lightgreen;
         margin: 0 auto;
         width: 80%;
+        border-radius: 25px;
       }
 
       #chat_form {
@@ -82,7 +83,7 @@
       #footer {
         margin: 0 auto;
         color: white;
-        background-color: cornflowerblue;
+        background-color: lightgreen;
       }
 
       #chat_content {
@@ -90,9 +91,16 @@
         font-size: 1.2em;
         color: white;
       }
+      h1,
+      h3 {
+        text-align: center;
+      }
     </style>
   </head>
   <body>
+    <h1>The Best Chatting App!</h1>
+    <h3>Service provided by:</h3>
+    <h3>Maximus, Paul, Marco, Toni, Xandra</h3>
     <div id="content">
       <form id="chat_form">
         <input type="text" id="name" placeholder="Name" />
@@ -126,12 +134,12 @@
             userStr = "users";
           }
           if (numOfUsers < 2) {
-            $("#chat_content").append("<p>Just you, no one else.</p>");
+            $("#chat_content").append("<p>You are alone, as always.</p>");
           } else {
             $("#chat_content").append(
               beginTag +
                 data.user +
-                " connected. There are " +
+                "There are " +
                 numOfUsers +
                 " " +
                 userStr +
@@ -153,7 +161,7 @@
             $("#chat_content").append(
               "<p>" +
                 data.user +
-                " left. You are now all alone on this chat server <span style='font-size: 1.2em; color: blue;'>☹</span>.</p>"
+                "You are once again alone.<span style='font-size: 1.2em; color: blue;'>☹</span>.</p>"
             );
           } else {
             $("#chat_content").append(
